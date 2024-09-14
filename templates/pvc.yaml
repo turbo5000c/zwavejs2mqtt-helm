@@ -1,0 +1,19 @@
+{{- if .Values.persistence.enabled }}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ .Values.persistence.claimName }}
+  namespace: {{ $.Release.Namespace }}
+  annotations:
+{{ .Values.persistence.annotations | toYaml | indent 4}}
+  labels:
+{{ .Values.persistence.labels | toYaml | indent 4}}
+spec:
+  accessModes:
+    {{- .Values.persistence.accessModes | toYaml | nindent 4 }}
+  volumeMode: Filesystem
+  storageClassName: {{ .Values.persistence.storageClass }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.size }}
+{{- end }}

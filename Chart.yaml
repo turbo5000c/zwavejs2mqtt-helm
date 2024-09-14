@@ -1,0 +1,15 @@
+apiVersion: v2
+appVersion: 9.9.1
+version: 0.1.2
+description: Automatically Updated Helm Chart for zwavejs2mqtt
+home:  https://gitea.local.updawg.xyz/helm/zwavejs2mqtt
+keywords:
+- zwavejs2mqtt
+- hass-zwavejs2mqtt
+kubeVersion: '>=1.16.0-0'
+maintainers:
+- email: updawg69hotmail.com
+  name: updawg69
+name: zwavejs2mqtt
+sources:
+- https://gitea.local.updawg.xyz/helm/zwavejs2mqtt
