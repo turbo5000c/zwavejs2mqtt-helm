@@ -1,0 +1,48 @@
+name: Package and Deploy Helm Chart to GitHub OCI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'charts/**'
+  # Add workflow_dispatch to allow manual runs
+  workflow_dispatch:
+
+jobs:
+  package-deploy-helm-chart:
+    runs-on: ubuntu-latest
+
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Helm CLI
+      - name: Set up Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: v3.12.0
+
+      # Log in to GitHub's OCI registry
+      - name: Log in to GitHub OCI registry
+        run: |
+          echo ${{ secrets.GITHUB_TOKEN }} | helm registry login ghcr.io --username ${{ github.actor }} --password-stdin
+
+      # Package Helm Chart
+      - name: Package Helm Chart
+        run: |
+          cd charts/zwavejs2mqtt
+          helm package . --version $(cat Chart.yaml | grep version | awk '{print $2}')
+          ls -l
+
+      # Push the Helm chart to GitHub OCI registry
+      - name: Push Helm Chart to OCI Registry
+        run: |
+          cd charts/zwavejs2mqtt
+          CHART_VERSION=$(cat Chart.yaml | grep version | awk '{print $2}')
+          helm push mosquitto-${CHART_VERSION}.tgz oci://ghcr.io/${{ github.repository_owner }}
