@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "zwavejs2mqtt.fullname" . }}
   labels:
@@ -47,8 +47,10 @@ spec:
           allowPrivilegeEscalation: true
           privileged: true
         volumeMounts:
+        {{- if .Values.zwaveVolumePath }}
         - mountPath: /dev/zwave
           name: zwavestick
+        {{- end }}
         - mountPath: /usr/src/app/store
           name: zwave-data
         {{- if .Values.additionalMounts }}
