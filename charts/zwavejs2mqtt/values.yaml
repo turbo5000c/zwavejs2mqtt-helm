@@ -19,7 +19,7 @@ persistence:
 #  annotations:
 #    helm.sh/resource-policy: keep
 
-#zwaveVolumePath: /dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_41500E22-if00-port0
+#zwaveVolumePath: /testing/this
 
 additionalVolumes: []
 #  - name: volName2use
