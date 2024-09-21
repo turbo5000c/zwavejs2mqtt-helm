@@ -51,6 +51,9 @@ spec:
           name: zwavestick
         - mountPath: /usr/src/app/store
           name: zwave-data
+        {{- if .Values.additionalMounts }}
+          {{- .Values.additionalMounts | toYaml | nindent 8 }}
+        {{- end }}
         # - mountPath: /usr/src/app/store/settings.json <-- if putting your settings.json in a secret
         #   name: config
         #   readOnly: true
