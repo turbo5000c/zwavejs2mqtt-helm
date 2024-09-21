@@ -3,23 +3,23 @@ namespace: zwavejs2mqtt
 
 replicaCount: 1
 
-nodeSelector:
-  app: hass
+#nodeSelector:
+#  app: hass
 
 persistence:
-  enabled: true
-  claimName: zwave-data
-  size: 2Gi
-  accessModes:
-    - ReadWriteOnce
-  labels: {}
-  storageClass:
-  subPath:
-  volumeName: ""
-  annotations:
-    helm.sh/resource-policy: keep
+  enabled: false
+#  claimName: zwave-data
+#  size: 2Gi
+#  accessModes:
+#    - ReadWriteOnce
+#  labels: {}
+#  storageClass:
+#  subPath:
+#  volumeName: ""
+#  annotations:
+#    helm.sh/resource-policy: keep
 
-zwaveVolumePath: /dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_41500E22-if00-port0
+#zwaveVolumePath: /dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_41500E22-if00-port0
 
 additionalVolumes: []
 #  - name: volName2use
